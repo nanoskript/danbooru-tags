@@ -4,9 +4,13 @@ from pathlib import Path
 
 import simdjson
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from starlette.responses import RedirectResponse
 from marisa_trie import Trie
+
+app = FastAPI(title="danbooru-tags-explorer")
+app.add_middleware(CORSMiddleware, allow_origins=["*"])
 
 
 def load_json_gzip(path):
@@ -16,7 +20,6 @@ def load_json_gzip(path):
 
 
 # FIXME: reduce memory usage
-app = FastAPI(title="danbooru-tags-explorer")
 tags = load_json_gzip("tags.json.gz")
 tag_names_to_ids = load_json_gzip("tag_names_to_ids.json.gz")
 tags_with_rankings = load_json_gzip("tags_with_rankings.json.gz")
