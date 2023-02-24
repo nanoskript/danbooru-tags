@@ -1,0 +1,58 @@
+.tag-search-form {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+}
+
+.tag-search-input-container {
+    flex: 1;
+    position: relative;
+}
+
+.tag-search-input {
+    width: 100%;
+}
+
+.tag-search-menu {
+    display: none;
+    position: absolute;
+    margin-top: -0.5rem;
+    width: 100%;
+    background-color: #eee;
+}
+
+.tag-search-menu:hover,
+.tag-search-input-container:focus-within .tag-search-menu {
+    display: block;
+}
+
+.tag-search-menu-item {
+    padding: 0.2rem 0.5rem 0.2rem;
+    cursor: grab;
+}
+
+.tag-search-menu-item:hover {
+    background-color: #ddd;
+}
+
+.related-tag-item {
+    padding: 0 1rem 0;
+    cursor: grab;
+}
+
+.related-tag-item:hover {
+    background-color: #eee;
+}
+
+.related-tag-item-hidden {
+    display: none;
+}
+
+.related-tag-item:hover .related-tag-item-hidden {
+    display: unset;
+}
+
+.tag-category-selection {
+    display: inline-block;
+    margin-right: 2rem;
+}
