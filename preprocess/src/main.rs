@@ -224,7 +224,7 @@ fn main() {
     write_to_json(Path::new("../processed/posts.json"), &posts);
 
     let tag_posts = create_tag_posts(&posts);
-    let tags_with_rankings = rank_top_n_tags_for_all_tags(&posts, &tag_posts, 100);
+    let tags_with_rankings = rank_top_n_tags_for_all_tags(&posts, &tag_posts, 50);
     write_to_json(
         Path::new("../processed/tags_with_rankings.json"),
         &tags_with_rankings,

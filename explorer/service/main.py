@@ -10,11 +10,12 @@ from marisa_trie import Trie
 
 
 def load_json_gzip(path):
-    with gzip.open(Path("vendor") / path, "rt") as f:
+    with gzip.open(Path("vendor") / path, "rb") as f:
         parser = simdjson.Parser()
         return parser.parse(f.read())
 
 
+# FIXME: reduce memory usage
 app = FastAPI(title="danbooru-tags-explorer")
 tags = load_json_gzip("tags.json.gz")
 tag_names_to_ids = load_json_gzip("tag_names_to_ids.json.gz")
