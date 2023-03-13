@@ -6,7 +6,7 @@
 
 You should have a system:
 
-- With at least 16 gigabytes of memory (for data processing)
+- With at least 16 gigabytes (preferably 32 gigabytes) of memory for data processing
 - That is running either macOS or Linux
 
 ### Required software

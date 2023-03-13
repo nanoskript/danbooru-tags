@@ -14,45 +14,54 @@ const DANBOORU_DATASET_ROOT: &str = "../datasets";
 #[derive(Deserialize)]
 struct RawTag {
     #[serde(deserialize_with = "deserialize_number_from_string")]
-    id: u64,
+    id: u32,
     name: String,
     #[serde(deserialize_with = "deserialize_number_from_string")]
-    category: u64,
+    category: u8,
     #[serde(deserialize_with = "deserialize_number_from_string")]
-    post_count: u64,
+    post_count: u32,
 }
 
 #[derive(Deserialize)]
 struct RawPost {
     #[serde(default)]
     #[serde(deserialize_with = "deserialize_option_number_from_string")]
-    id: Option<u64>,
+    id: Option<u32>,
     tag_string: String,
     #[serde(deserialize_with = "deserialize_number_from_string")]
-    score: i64,
+    score: i32,
+    #[serde(deserialize_with = "deserialize_number_from_string")]
+    up_score: i32,
+    #[serde(deserialize_with = "deserialize_number_from_string")]
+    down_score: i32,
     rating: String,
     created_at: String,
 }
 
 #[derive(Debug, Copy, Clone, Serialize, Deserialize, Hash, Eq, PartialEq, Ord, PartialOrd)]
-struct TagId(u64);
+struct TagId(u32);
 
 #[derive(Debug, Copy, Clone, Serialize, Deserialize, Hash, Eq, PartialEq, Ord, PartialOrd)]
-struct PostId(u64);
+struct PostId(u32);
 
 #[derive(Serialize, Deserialize)]
 struct Tag {
     id: TagId,
     name: String,
-    category: u64,
-    post_count: u64,
+    category: u8,
+    post_count: u32,
 }
 
 #[derive(Serialize, Deserialize)]
 struct Post {
     id: PostId,
     tags: Vec<TagId>,
-    score: i64,
+    /// It is not guaranteed that the score is equal to
+    /// the difference between the up and down scores.
+    score: i32,
+    up_score: u32,
+    /// Normalized to be positive.
+    down_score: u32,
     rating: char,
     created_at: String,
 }
@@ -125,6 +134,8 @@ fn parse_posts(tag_names_to_ids: &TagNamesToIds) -> Posts {
                 id,
                 tags,
                 score: post.score,
+                up_score: post.up_score as u32,
+                down_score: (-post.down_score) as u32,
                 rating: post.rating.chars().next().unwrap(),
                 created_at: post.created_at,
             })
