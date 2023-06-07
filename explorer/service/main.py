@@ -1,28 +1,24 @@
-import gzip
 import itertools
 from pathlib import Path
 
-import simdjson
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from starlette.responses import RedirectResponse
 from marisa_trie import Trie
+from sqlitedict import SqliteDict
 
 app = FastAPI(title="danbooru-tags-explorer")
 app.add_middleware(CORSMiddleware, allow_origins=["*"])
 
 
-def load_json_gzip(path):
-    with gzip.open(Path("vendor") / path, "rb") as f:
-        parser = simdjson.Parser()
-        return parser.parse(f.read())
+def load_table(table):
+    return SqliteDict(Path("data") / table, flag="r")
 
 
-# FIXME: reduce memory usage
-tags = load_json_gzip("tags.json.gz")
-tag_names_to_ids = load_json_gzip("tag_names_to_ids.json.gz")
-tags_with_rankings = load_json_gzip("tags_with_rankings.json.gz")
+tags = load_table("tags.sqlite")
+tag_names_to_ids = load_table("tag_names_to_ids.sqlite")
+tags_with_rankings = load_table("tags_with_rankings.sqlite")
 tag_names_trie = Trie(tag_names_to_ids.keys())
 
 
