@@ -13,7 +13,7 @@ app.add_middleware(CORSMiddleware, allow_origins=["*"])
 
 
 def load_table(table):
-    return SqliteDict(Path("data") / table, flag="r")
+    return SqliteDict(Path("vendor") / table, flag="r")
 
 
 tags = load_table("tags.sqlite")
