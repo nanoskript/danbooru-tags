@@ -73,12 +73,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "pysimdjson"
-version = "5.0.2"
-requires_python = ">3.5"
-summary = "simdjson bindings for python"
-
-[[package]]
 name = "python-dotenv"
 version = "0.21.1"
 requires_python = ">=3.7"
@@ -101,6 +95,11 @@ name = "sniffio"
 version = "1.3.0"
 requires_python = ">=3.7"
 summary = "Sniff out which async library your code is running under"
+
+[[package]]
+name = "sqlitedict"
+version = "2.1.0"
+summary = "Persistent dict in Python, backed up by sqlite3 and pickle, multithread-safe."
 
 [[package]]
 name = "starlette"
@@ -167,7 +166,7 @@ summary = "An implementation of the WebSocket Protocol (RFC 6455 & 7692)"
 
 [metadata]
 lock_version = "4.1"
-content_hash = "sha256:12edc7efd57791c93ca36b66f1565d0c41c9a83b98bc7b3bd890e0d77f01faf9"
+content_hash = "sha256:cb505b325174ef1278bf9e999acaaea03d828ae7561d15920287126f303c4ed6"
 
 [metadata.files]
 "anyio 3.6.2" = [
@@ -340,82 +339,6 @@ content_hash = "sha256:12edc7efd57791c93ca36b66f1565d0c41c9a83b98bc7b3bd890e0d77
     {url = "https://files.pythonhosted.org/packages/f4/cb/7299ad5462f30555c9573a7b406d762841f1296b4ffecb800264ff6b5200/pydantic-1.10.5-cp310-cp310-musllinux_1_1_x86_64.whl", hash = "sha256:72ef3783be8cbdef6bca034606a5de3862be6b72415dc5cb1fb8ddbac110049a"},
     {url = "https://files.pythonhosted.org/packages/ff/11/9db43f7cd6fe4f22170b282f9742b2d3b645d7d84cecc5221b4d7c50af44/pydantic-1.10.5-cp37-cp37m-musllinux_1_1_x86_64.whl", hash = "sha256:36e44a4de37b8aecffa81c081dbfe42c4d2bf9f6dff34d03dce157ec65eb0f15"},
 ]
-"pysimdjson 5.0.2" = [
-    {url = "https://files.pythonhosted.org/packages/02/3e/7e916484be1685e49abc3d2e93cbae8d5ef555b6d17a19126f462305dc9d/pysimdjson-5.0.2-cp39-cp39-manylinux_2_5_i686.manylinux1_i686.manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:f52cb85e4ea3f1edfe4a21ac226f96e042bcb92c3bedb4911f0494f6bb866020"},
-    {url = "https://files.pythonhosted.org/packages/0e/9d/3ad363b98b3b279c472aecac921f4a99255c7bb6ce4fa9ab5dca90bd922d/pysimdjson-5.0.2-cp39-cp39-musllinux_1_1_aarch64.whl", hash = "sha256:3be50b757186b6d7f27924af6f6934b9b176c8b810ea068425f32213ccbd234d"},
-    {url = "https://files.pythonhosted.org/packages/0f/7b/d53246091dc4f98aaf5dfd4716cb78039e29751958516397d02ff9fda7f8/pysimdjson-5.0.2-cp38-cp38-musllinux_1_1_aarch64.whl", hash = "sha256:8bb3b72601910b8f05bbb2e389611181ecb7f778f4e448fb9b321a90d44d7fcc"},
-    {url = "https://files.pythonhosted.org/packages/12/93/64ba9a69bd6fe838b018f1e6d7b4f0552545fcaeb91cd813563d99549696/pysimdjson-5.0.2-cp36-cp36m-musllinux_1_1_i686.whl", hash = "sha256:426f338ae3b162c7ccb619c59e41720dd6d21f6d748b3e4ce8871f35237da41f"},
-    {url = "https://files.pythonhosted.org/packages/13/1f/f25b79de8989853cdc7e6fdc4fc057609bf8b3c7c7931c839b9d2daabf01/pysimdjson-5.0.2-pp38-pypy38_pp73-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:a30e0da6140ab5fd8a4d0152f017c331edd5ab739082a43d22958992e84d6dd4"},
-    {url = "https://files.pythonhosted.org/packages/13/55/f03c583a69a80c7d817a18c298f379c6f5069c2fa32a856de1f0ad17d8a6/pysimdjson-5.0.2-cp310-cp310-musllinux_1_1_aarch64.whl", hash = "sha256:91fe1e7d838c0420b3e30aba8f6c6da6a48074ad84a2c31daab10a99fa826dff"},
-    {url = "https://files.pythonhosted.org/packages/14/8f/bf868f51bb75a9f4d92e4449280445008a3383fc94cc697bae504c93f440/pysimdjson-5.0.2-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:21c69ab582c63058627210cd7d38dd01ed2ee3e6f61f966c0a91fd01c59791b2"},
-    {url = "https://files.pythonhosted.org/packages/15/a1/c505109724b1ad3cce0048db966bc122dc3b806da743a0fd756aa663535d/pysimdjson-5.0.2-cp39-cp39-win32.whl", hash = "sha256:5ae0af0d77ecf6970e92b0af14cc12f4019ed058428d54254dbe0d49b12267ec"},
-    {url = "https://files.pythonhosted.org/packages/16/24/ad67aeb0838133368197f5f7feb8daaf32a3bb493415342bfc173bd63264/pysimdjson-5.0.2-cp310-cp310-musllinux_1_1_ppc64le.whl", hash = "sha256:30d2ab316ecf78c3422526ed2af22a8b519f475854dd05bd1c1fbcc3d47b8f0a"},
-    {url = "https://files.pythonhosted.org/packages/18/19/d2714acbaae3c7f44cf76efdbd1c4abec476a4a76758eb37630dbc79f8a4/pysimdjson-5.0.2-pp37-pypy37_pp73-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:0d99d062b7b3dcc91f128b1128d1febaf122b996d8a44986745e2432e438cc95"},
-    {url = "https://files.pythonhosted.org/packages/18/d7/bc36ee62eaa43ad162d0344bd76f310759c933ce7b6bad2bc211338cc266/pysimdjson-5.0.2-cp38-cp38-manylinux_2_17_ppc64le.manylinux2014_ppc64le.whl", hash = "sha256:404cafdf4048e06d8e1a7af0f2c49a8fc81ae1a55356706a7268b81c0afb50d1"},
-    {url = "https://files.pythonhosted.org/packages/1f/f7/1712eb32648e4e78b2d0fff65d86e0ecf12f4518fffa208971d6e56240d3/pysimdjson-5.0.2-pp39-pypy39_pp73-win_amd64.whl", hash = "sha256:18c700b89ae642b2a805a08b208f0843921a52ba9c660a57b37c692c8a69e9ae"},
-    {url = "https://files.pythonhosted.org/packages/23/9e/2996393ab4b1deb704817872fb172216a17d6e750d282f0a3667c97b3392/pysimdjson-5.0.2-cp310-cp310-macosx_10_9_universal2.whl", hash = "sha256:0c174211ace2df836079f7d7147ba007b0d4aedb30b334ffe2343d37fde0abec"},
-    {url = "https://files.pythonhosted.org/packages/2d/9f/33f088c6a337ab09bdc7bebf40e012905637f8b4df8c2e6e0f118c29c40b/pysimdjson-5.0.2-cp36-cp36m-musllinux_1_1_aarch64.whl", hash = "sha256:3fa8250383d08015dbd9b6b6888f6d7d87619a9b5662a0f1053111d02939dbf0"},
-    {url = "https://files.pythonhosted.org/packages/2e/9b/0edfa0355f037ce1a598bdc8f1870eec4d20263e92c9e296cc38ecbcd6c3/pysimdjson-5.0.2-pp38-pypy38_pp73-win_amd64.whl", hash = "sha256:404c9b25711b70bfb55d3ee175955cc4dc2f6e03057d9c3b34a1ad5c1d3bd0d8"},
-    {url = "https://files.pythonhosted.org/packages/2f/63/170b032850b53cff0e4b0e9774fca940eabad41a2208f34f38100dad125c/pysimdjson-5.0.2-cp310-cp310-manylinux_2_17_ppc64le.manylinux2014_ppc64le.whl", hash = "sha256:1fc69cdbeb78d72d84033f441ef2c30a21325a2f16f1dae0a36c8070f921ea37"},
-    {url = "https://files.pythonhosted.org/packages/30/68/66625e0dced118b49a602948486567698d5981c5ae41cd36c6bcc9471ebb/pysimdjson-5.0.2-pp39-pypy39_pp73-manylinux_2_5_i686.manylinux1_i686.manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:29d06b5dc9934f53509d3ad0d04690c5a6874191ae7e4c0b3cfcb3e5eceabfd9"},
-    {url = "https://files.pythonhosted.org/packages/36/a0/c2431ff425379484c334452f0563297454764e7a90f914b813a799899343/pysimdjson-5.0.2-cp37-cp37m-musllinux_1_1_aarch64.whl", hash = "sha256:0296e54d40fa8d4f0bcb06fc14ceaa25c178def4331f34c669d9b48343d016f4"},
-    {url = "https://files.pythonhosted.org/packages/3e/61/78764ec6bc2f5ed02d7795b3fd94c1405f4eaac8c4989de9105c9f63f867/pysimdjson-5.0.2-cp37-cp37m-musllinux_1_1_i686.whl", hash = "sha256:0194c30e3ddb020ae15bda0f1c07822e7179ce26072f948b7ae5bc82f1b10ef0"},
-    {url = "https://files.pythonhosted.org/packages/3f/58/08561bfaf9b9e46ed4da70b3e86bb6448ba35d30176e944b609e0b0c5edf/pysimdjson-5.0.2-cp36-cp36m-musllinux_1_1_ppc64le.whl", hash = "sha256:eac19dc49745527602720c0189e1fe27c56fdfdd43172838ff718a06e10431bc"},
-    {url = "https://files.pythonhosted.org/packages/45/5a/da9ed42b7b540d3e2f66ef56a88d0ff7c62dfeee9e95c90126583ab0e349/pysimdjson-5.0.2.tar.gz", hash = "sha256:83010f07f9ca38e4557b61860acfeb0a897b416f06f73182ffaffa94bdb7394d"},
-    {url = "https://files.pythonhosted.org/packages/45/f6/47a225c6f5dbe3fe95051ffb3f5a5632a3ecc7e6fea162808aa1cbeeb723/pysimdjson-5.0.2-cp310-cp310-manylinux_2_5_i686.manylinux1_i686.manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:6e52d08a19b6b3050df211733af6c41703cb40f63c2608e5460d3d1175b8e320"},
-    {url = "https://files.pythonhosted.org/packages/50/69/7ad7321613ee72e78e4855de0c7698b348d2934acf0ad9c278b8f0bcec55/pysimdjson-5.0.2-cp36-cp36m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:dd9182f00d3dabd3972d7677de5bb4eb0e2548617f91b4a65d86ac859ec6e8b8"},
-    {url = "https://files.pythonhosted.org/packages/51/0b/4b16d8d2867524629cbef3e1380f486fed5f5680e140c9fc487f9bfe3a5d/pysimdjson-5.0.2-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:a14e6bfa3da66ee9a9338283f89b18d658d558d46b8c6fe928cdecbcd70515dc"},
-    {url = "https://files.pythonhosted.org/packages/54/00/2e45b3423d336d408a976265f8f12bd3b165e4cc6ac8136774f2cf251763/pysimdjson-5.0.2-cp36-cp36m-macosx_10_9_x86_64.whl", hash = "sha256:2ada1ab44069080e3e889bec665da0dd4e04387b18c611868c1a761f1bce0fe0"},
-    {url = "https://files.pythonhosted.org/packages/58/56/a27bbc692d0c36fb9600bb0a7f2d7ec541d3c4562f92ee3cfe54fdd06721/pysimdjson-5.0.2-cp39-cp39-macosx_10_9_universal2.whl", hash = "sha256:9ed4febd26c3ecc7e3b77033a3effef623a87d423717877ddab2ec4dd325330b"},
-    {url = "https://files.pythonhosted.org/packages/67/da/35202772336525e04b2ac91403c031451d9cef13e5a9ecce4bb3167e9d71/pysimdjson-5.0.2-cp38-cp38-musllinux_1_1_x86_64.whl", hash = "sha256:036a21708836c52f08bc77133b00c747de2965070ca381aadc1beedf45f24777"},
-    {url = "https://files.pythonhosted.org/packages/71/22/d479d192941ef076fb2435b6f604052477038c35af20a53b67468b6eec79/pysimdjson-5.0.2-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:bd509245ba00349d0cc8941590f381ae96322c5881675d1189f386d9d58a99be"},
-    {url = "https://files.pythonhosted.org/packages/71/ca/f4f88e9e29fb420ab1919f81051dfe6750e02bcd8fa4325db35d50edec34/pysimdjson-5.0.2-pp39-pypy39_pp73-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:b742cff183119b6e85396518e7e551b67c7639739dc79cd509c82ae5730660d0"},
-    {url = "https://files.pythonhosted.org/packages/71/f4/dd88393f39aa07299ab836463b9cd6ab1c0412dc9aac63250c83fff83ff0/pysimdjson-5.0.2-cp37-cp37m-win_amd64.whl", hash = "sha256:d6de667a55125d149c62f3512d86909a350342ebe41a1409455122742fd91cbe"},
-    {url = "https://files.pythonhosted.org/packages/86/6a/49b7ae7151ef09302c2a7560993fe0b80f33627b811145aca2facfbd2de9/pysimdjson-5.0.2-cp37-cp37m-win32.whl", hash = "sha256:dcc2af2a40c63431d238f8c3111efb184f19d5fb4621a330d47be2392b72d01b"},
-    {url = "https://files.pythonhosted.org/packages/8a/e5/3076ca7e05909d68cb889ba7224c8dfc925e821b040f76bb6179a6978f59/pysimdjson-5.0.2-cp39-cp39-manylinux_2_17_ppc64le.manylinux2014_ppc64le.whl", hash = "sha256:aac429223e66c726be42e26d58fdc579a1d773a7c0cd15c705a8435aa0364bc5"},
-    {url = "https://files.pythonhosted.org/packages/8b/a2/65ff257e6a58daf2f30615ebf2a5ba8ef6b85b1dc6ec4ddd829cac1a80c2/pysimdjson-5.0.2-cp38-cp38-musllinux_1_1_ppc64le.whl", hash = "sha256:be73f04675e9961fb1002155eca69ad42119ef33026796b270f42826b2322fa2"},
-    {url = "https://files.pythonhosted.org/packages/8d/58/aa06bc68f97ae97b6e5549e23ec15d5b22b7054ef4283ea233014c1a6790/pysimdjson-5.0.2-cp37-cp37m-musllinux_1_1_x86_64.whl", hash = "sha256:8d7256bc0ec2d20b84c0460f843d56b9b4dd7ecb3c20a3654e31308086b31265"},
-    {url = "https://files.pythonhosted.org/packages/96/c5/4cbe07025999e6535584d0f407aec06f8505542713e7c8c20dd837b349e4/pysimdjson-5.0.2-cp310-cp310-musllinux_1_1_i686.whl", hash = "sha256:b9e6a184dbd06a403ed596295665a060d7deea6e03e07b4085fea2db55711fc8"},
-    {url = "https://files.pythonhosted.org/packages/97/ab/94d755e824d95f40e1ace4c1bf67e5acbfbe443d21cdff717fcc7e70e98f/pysimdjson-5.0.2-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:0e526a3c5acfdf3cb04e098cd9ac415979652e7a35831b54c4f8309b0bcd45d6"},
-    {url = "https://files.pythonhosted.org/packages/9b/3a/ecad565362ddde91dabd247995aea097e5d85efe86dbf0909b4668d1df83/pysimdjson-5.0.2-cp37-cp37m-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:94166d2aa5eb5606b2e8b2593a50e14f7f9071d98eae869fb72b180658fdf71a"},
-    {url = "https://files.pythonhosted.org/packages/9b/42/0a06be5c3d93be8ee27d91427926a35be69a41c307f2ea995af04e2cbad8/pysimdjson-5.0.2-cp39-cp39-win_amd64.whl", hash = "sha256:367df8769939e7325f39fd2cb49d4d5b886252001e9616246f5166805567ffa1"},
-    {url = "https://files.pythonhosted.org/packages/9b/5f/98ff6d78819d2042096b368521dc2379c56cb31fa8d79f5850d417c0e5e6/pysimdjson-5.0.2-cp37-cp37m-manylinux_2_5_i686.manylinux1_i686.manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:fab344d5c12fb8567330576eec81d2fceb0da9a1457fb30ef9a1a5d667668ea7"},
-    {url = "https://files.pythonhosted.org/packages/9c/f1/2718921edf47de77c9762d3fff32f958a5401c96d287403d8dc6951ac628/pysimdjson-5.0.2-cp39-cp39-musllinux_1_1_ppc64le.whl", hash = "sha256:47d1c3e8193372712580f7b6fa37a21b5e3d25879ecf3a1f98a84b30b82f8e11"},
-    {url = "https://files.pythonhosted.org/packages/9e/cd/d58b8eaed30d607dc86596bb8c1c56b46758d893d3f894fb07f11b6084ce/pysimdjson-5.0.2-cp39-cp39-musllinux_1_1_i686.whl", hash = "sha256:2ba145604266b4913949d0fea0babc42be0d2b69d2e528b263c8341401ac6927"},
-    {url = "https://files.pythonhosted.org/packages/a0/eb/e8d16ce32b740a9b0ea48cbc0b9fed5b5b5e846ae0a172a03e35c5167f86/pysimdjson-5.0.2-cp38-cp38-win32.whl", hash = "sha256:9824f5fe92232dbb32f987d4e5d439f57121ec4346be2fb5e6caa7bb38df53d5"},
-    {url = "https://files.pythonhosted.org/packages/a5/4c/8b1a9dee634d318b5cafc385c873edce7f0a7aaf2d045c44ccb813039fda/pysimdjson-5.0.2-pp39-pypy39_pp73-macosx_10_9_x86_64.whl", hash = "sha256:f6b9fe0c9a554d4920e9d45422a5435c3f4631e6edd2f858fcca4ee026d66f59"},
-    {url = "https://files.pythonhosted.org/packages/a7/f0/f8a025ee22c0ccc84a04d1e451695e6d80864583d75d4d0eb83730a0b02d/pysimdjson-5.0.2-cp36-cp36m-manylinux_2_5_i686.manylinux1_i686.manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:5daa9235f52471d3de42fe6a7bd7d8479bad847fba0768ad71359f8b905c3880"},
-    {url = "https://files.pythonhosted.org/packages/a9/b1/81d0e820897bccdf8fbb744d701e9c41eb2022f6f888bce81b00e6a16fe2/pysimdjson-5.0.2-pp37-pypy37_pp73-manylinux_2_5_i686.manylinux1_i686.manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:2a9ddf510c87af7b0259c32f4679b5c2ca368f63b096bf886bebea37b5637752"},
-    {url = "https://files.pythonhosted.org/packages/b2/08/07538fe8227f161e21c9e7c83e78a557e9dc27d631ba09bb57c9045bbf51/pysimdjson-5.0.2-cp36-cp36m-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:77b0ee3270431c1d6c2d75c70640403e3c3b8e7dda5ed52ab08f3bd86527c44a"},
-    {url = "https://files.pythonhosted.org/packages/b8/1d/ec1517527ab2552c56b282743f1373d3201cb5cfa0bec664cd26f1753f55/pysimdjson-5.0.2-cp36-cp36m-win32.whl", hash = "sha256:5f9bef1e3dc4bee2a19cf2788b5eee59ccd198c4f025d4f40bf3d56abaa26b60"},
-    {url = "https://files.pythonhosted.org/packages/b9/21/72c61322ffa2155772e402c4675c040301ae509828541b2793e44b01591f/pysimdjson-5.0.2-pp38-pypy38_pp73-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:12acf618676b97aa44b4af3f0e81ccbb2c9b25d42a0624a54fbc6cd15ff12a68"},
-    {url = "https://files.pythonhosted.org/packages/bb/79/14d8a65e7505ab346eec6519cb758e43addc827f87a549787c86ad08b754/pysimdjson-5.0.2-pp37-pypy37_pp73-win_amd64.whl", hash = "sha256:2f1dee8783b3574d4ceafec30c25882ab0540173a7e274753fa1683fe223dab9"},
-    {url = "https://files.pythonhosted.org/packages/bd/13/69de19ce0d070992f5c39ea1566e067f606ae344a7685e41000301bc0fa9/pysimdjson-5.0.2-cp38-cp38-macosx_10_9_universal2.whl", hash = "sha256:1731d830eda3f20ea37700c7401e25226bc264bc3529284fd29e1d13d9ba3412"},
-    {url = "https://files.pythonhosted.org/packages/bd/2a/1c55cbf9d5e441388d816f7a8746e4aade47ee4aaa1d540e79212feec7e4/pysimdjson-5.0.2-cp36-cp36m-musllinux_1_1_x86_64.whl", hash = "sha256:947f56cbd91ea44b0b37279cbc609cdb21f8de707027bf04565cfc3150a86ab8"},
-    {url = "https://files.pythonhosted.org/packages/c0/12/74a74bb545803db1d3af650563904c17befba6a24b786157a571321499a3/pysimdjson-5.0.2-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:bcb44fce899c86ae1147ac3086ff713df92224d404cfb5ab87a1ed37059a6979"},
-    {url = "https://files.pythonhosted.org/packages/c0/a8/a5b55efc3d170d60098a6950797fabf26b1ea7cc1ca1d1024c56258872b8/pysimdjson-5.0.2-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:fc163800dac891497c57c8c64c370a058cca97ce229268c4683739a5816a501e"},
-    {url = "https://files.pythonhosted.org/packages/c1/1c/ae286f86983c9cf7f146abe1f64b03860e524c7d25b9da7646731ea7b27d/pysimdjson-5.0.2-pp37-pypy37_pp73-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:58514f2d9d4abf0ac57abfd217e375bb5470df64b98802fd345c1018dca50f98"},
-    {url = "https://files.pythonhosted.org/packages/c1/49/980dc414c79b44985b375fb05f933ec8a6aa140c37fe7c6400fd4b0cb4ed/pysimdjson-5.0.2-cp310-cp310-win_amd64.whl", hash = "sha256:bdc392eaa31b5810974c38d481e7e26992ccfff0452352a6ac33f620cf8cf220"},
-    {url = "https://files.pythonhosted.org/packages/c1/93/e953f88c0b21671fcf52eb360cb135a359586ecd0d4318555796b46b36f7/pysimdjson-5.0.2-cp36-cp36m-win_amd64.whl", hash = "sha256:2e170291f4f7e6a413e221467fe5a83884269fc95127099aea17c8bb64faaa37"},
-    {url = "https://files.pythonhosted.org/packages/c5/26/e0fd0ed3d5e8040a5d8c37a17f4123adbdb4c013cd0df4b2b75526fdad83/pysimdjson-5.0.2-cp38-cp38-win_amd64.whl", hash = "sha256:b35075e02781d730699b363a47d843fd63d42a6304977648562bb56635cd0b6f"},
-    {url = "https://files.pythonhosted.org/packages/d6/fd/30d230975ad159c996246064c4be3faf33ec6ea499487459250dfa0c38b1/pysimdjson-5.0.2-pp37-pypy37_pp73-macosx_10_9_x86_64.whl", hash = "sha256:c66c05577bd2c960933061d898032966056d862c5b92896acecc8e119a58c570"},
-    {url = "https://files.pythonhosted.org/packages/da/bf/cb5581a43374d6909752587ccad26d5e7e93aa299e4fd617b2e12f55608c/pysimdjson-5.0.2-cp37-cp37m-macosx_10_9_x86_64.whl", hash = "sha256:347517b6275e380d5d189f91b97c2fa33e2063f5ffd15c45484e1f509abd4c62"},
-    {url = "https://files.pythonhosted.org/packages/db/31/92607b822a9615adeeaa171e0d892bc72143237c9d82cb2f6a8cbd7143f5/pysimdjson-5.0.2-pp38-pypy38_pp73-macosx_10_9_x86_64.whl", hash = "sha256:784f7164b5ba7d2b91d0c6f98630d0642f9f5771e4b17ba84336fe055a01284f"},
-    {url = "https://files.pythonhosted.org/packages/dc/94/55fdadddfb64ec2d76facbc65737db2b9fad61cb200779d63df6633da3fe/pysimdjson-5.0.2-cp38-cp38-musllinux_1_1_i686.whl", hash = "sha256:a1eb0745349cebb8d8cbcd81bbd42e747cd0eb4c9d6cca9a94a9f0ab9998dd04"},
-    {url = "https://files.pythonhosted.org/packages/df/27/e38b2c83fd686da90fddcc75bbd206b3dbfb0b4f2e01026fb91e1973434f/pysimdjson-5.0.2-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:da11344c5ae72a00460b6de0fd297108dda0ab72a421b979257d075cc3e9aa91"},
-    {url = "https://files.pythonhosted.org/packages/df/8d/17c37ded0d7058007f259f66f6815f154154f8e784a4e2ca09a8ae540afc/pysimdjson-5.0.2-cp38-cp38-manylinux_2_5_i686.manylinux1_i686.manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:99fcb0e6fc8e4ed4650fa707d283de85cf6fc37ab50eaed82dc17dda910ce7b0"},
-    {url = "https://files.pythonhosted.org/packages/e1/5f/ba718a14c66713fff6980cde8ba973cc955cdfad1dd9574b5c5826d668d8/pysimdjson-5.0.2-cp310-cp310-win32.whl", hash = "sha256:206e09845f4b3d0639c6da19435be81728ceb7570c2487eb59f40dadb0e24b63"},
-    {url = "https://files.pythonhosted.org/packages/e5/00/fa2481a8f59f78a7a2a479b23dc25dd65f05dc4e7644c7a418e8c549e0a9/pysimdjson-5.0.2-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:c94089b145be2558b058a5fa7678bce8c47d810610aabee18cc036598740ea7d"},
-    {url = "https://files.pythonhosted.org/packages/e8/38/624cae294ebb7a2b66d9b609219eced8430c275da9f12201f80ed958ddce/pysimdjson-5.0.2-cp37-cp37m-musllinux_1_1_ppc64le.whl", hash = "sha256:9f4129ecf92596759635979fe8837335231ad81ced395b1d6a98f116be4989c0"},
-    {url = "https://files.pythonhosted.org/packages/ee/b6/c8c6b1158c8e152a52500e2ee270b0b33d3e58fa30d9dcba95537dc6dc19/pysimdjson-5.0.2-cp37-cp37m-manylinux_2_17_ppc64le.manylinux2014_ppc64le.whl", hash = "sha256:37ad3ae8df1d3a489289a876fc62e8b5b9825ab636f9fc12ff64033bc506c5e9"},
-    {url = "https://files.pythonhosted.org/packages/f3/67/3e7dcd94d4f2aa9e19adaf64a067788e7f3f8837ffac1603d8e5c44cf65d/pysimdjson-5.0.2-cp39-cp39-musllinux_1_1_x86_64.whl", hash = "sha256:ca207814a37504799bbc2ca1a8024e1f676516e905fb05e56f1bfbfaa9149530"},
-    {url = "https://files.pythonhosted.org/packages/f6/c0/bc7dee85810c88a8528c763067260b898068864ea5f9bd306f33f3232591/pysimdjson-5.0.2-cp310-cp310-musllinux_1_1_x86_64.whl", hash = "sha256:1c81592c92f5330558dbdcb9d7f12f0a631f25eb4d8237283beeaadaa07e012b"},
-    {url = "https://files.pythonhosted.org/packages/f8/45/c13f7ac2c6a4dc51db47c1beb08ddb795b1267ed95756c70c5e89640e619/pysimdjson-5.0.2-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:956702ba73d3094808fd82eef13981f95481aff39a0b2ba1f97681dfe024d8aa"},
-    {url = "https://files.pythonhosted.org/packages/fb/20/3befe1093a88b91b391745e9787ae83dcb72838b6902c32d0a0782584414/pysimdjson-5.0.2-pp38-pypy38_pp73-manylinux_2_5_i686.manylinux1_i686.manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:ee174a9a5d53a4527f2b432ef449ae3e6424d8aaa6d1d3c91f4bbf41b32fbb31"},
-    {url = "https://files.pythonhosted.org/packages/fb/40/cfdf6bc853d7e74fb433202a06bf3da5aee14f56c1d56c23988348476158/pysimdjson-5.0.2-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:5c79bc86d7efff5f195b5823ec5f7d5d52383c9678c764e9d80bcd3c42102a49"},
-    {url = "https://files.pythonhosted.org/packages/fb/81/c68ec5e2e8cc2b221c9022b3321f5711672116b60383854b8c442f400b69/pysimdjson-5.0.2-cp36-cp36m-manylinux_2_17_ppc64le.manylinux2014_ppc64le.whl", hash = "sha256:a6da023143499e9f43d6119b5744b28c59061ba79a68ac3dc106006d252a234f"},
-    {url = "https://files.pythonhosted.org/packages/fc/02/c4451f9987f7738687ef143f4220d6ecb46e3b553407d3b6b4a62e474913/pysimdjson-5.0.2-pp39-pypy39_pp73-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:eecdee7b639a4bc4376daef062af0a04c78f893b7647494a68a37af1bd3b3700"},
-]
 "python-dotenv 0.21.1" = [
     {url = "https://files.pythonhosted.org/packages/64/62/f19d1e9023aacb47241de3ab5a5d5fedf32c78a71a9e365bb2153378c141/python_dotenv-0.21.1-py3-none-any.whl", hash = "sha256:41e12e0318bebc859fcc4d97d4db8d20ad21721a6aa5047dd59f090391cb549a"},
     {url = "https://files.pythonhosted.org/packages/f5/d7/d548e0d5a68b328a8d69af833a861be415a17cb15ce3d8f0cd850073d2e1/python-dotenv-0.21.1.tar.gz", hash = "sha256:1c93de8f636cde3ce377292818d0e440b6e45a82f215c3744979151fa8151c49"},
@@ -469,6 +392,9 @@ content_hash = "sha256:12edc7efd57791c93ca36b66f1565d0c41c9a83b98bc7b3bd890e0d77
 "sniffio 1.3.0" = [
     {url = "https://files.pythonhosted.org/packages/c3/a0/5dba8ed157b0136607c7f2151db695885606968d1fae123dc3391e0cfdbf/sniffio-1.3.0-py3-none-any.whl", hash = "sha256:eecefdce1e5bbfb7ad2eeaabf7c1eeb404d7757c379bd1f7e5cce9d8bf425384"},
     {url = "https://files.pythonhosted.org/packages/cd/50/d49c388cae4ec10e8109b1b833fd265511840706808576df3ada99ecb0ac/sniffio-1.3.0.tar.gz", hash = "sha256:e60305c5e5d314f5389259b7f22aaa33d8f7dee49763119234af3755c55b9101"},
+]
+"sqlitedict 2.1.0" = [
+    {url = "https://files.pythonhosted.org/packages/12/9a/7620d1e9dcb02839ed6d4b14064e609cdd7a8ae1e47289aa0456796dd9ca/sqlitedict-2.1.0.tar.gz", hash = "sha256:03d9cfb96d602996f1d4c2db2856f1224b96a9c431bdd16e78032a72940f9e8c"},
 ]
 "starlette 0.25.0" = [
     {url = "https://files.pythonhosted.org/packages/3b/89/f873d6392441a8be9bcbc0abbc92aa73849879e72565331bd9b54cfb8675/starlette-0.25.0.tar.gz", hash = "sha256:854c71e73736c429c2bdb07801f2c76c9cba497e7c3cf4988fde5e95fe4cdb3c"},
