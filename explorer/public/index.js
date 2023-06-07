@@ -36,10 +36,17 @@ const TagSearchForm = ({ query, updateQuery }) => {
     const [string, setString] = useState(query.get("tag") || "");
     const [completions, setCompletions] = useState([]);
 
-    useEffect(() => (async () => {
-        const response = await fetch(`${API}/tag_complete?prefix=${string}`);
-        setCompletions(await response.json());
-    })(), [string]);
+    useEffect(() => {
+        const controller = new AbortController();
+        (async () => {
+            try {
+                const request = { signal: controller.signal };
+                const response = await fetch(`${API}/tag_complete?prefix=${string}`, request);
+                setCompletions(await response.json());
+            } catch (_error) {}
+        })();
+        return () => controller.abort();
+    }, [string]);
 
     const onSelect = (newString) => {
         setString(newString);
@@ -99,7 +106,7 @@ const TagCategoriesFilter = ({ shownCategories, setShownCategories }) => {
 };
 
 const TagCorrelationsList = ({ query, updateQuery, shownCategories }) => {
-    const string = query.get("tag").trim();
+    const string = (query.get("tag") || "").trim();
     if (string.length === 0) return html``;
 
     const [results, setResults] = useState(null);
