@@ -1,6 +1,10 @@
-import { h, render } from "https://cdn.skypack.dev/preact@10.11.2?min";
-import { useEffect, useState } from "https://cdn.skypack.dev/preact@10.11.2/hooks?min";
+import {h, render} from "https://cdn.skypack.dev/preact@10.11.2?min";
+import {useEffect, useState, useRef} from "https://cdn.skypack.dev/preact@10.11.2/hooks?min";
 import htm from "https://cdn.skypack.dev/htm@3.1.1?min";
+
+import "https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.11.8/dayjs.min.js";
+import "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.3.0/chart.umd.min.js";
+import "https://cdn.jsdelivr.net/npm/chartjs-adapter-dayjs@1.0.0/+esm";
 
 // Initialize htm with Preact.
 const html = htm.bind(h);
@@ -32,7 +36,7 @@ const TAG_CATEGORIES = {
     },
 };
 
-const TagSearchForm = ({ query, updateQuery }) => {
+const TagSearchForm = ({query, updateQuery}) => {
     const [string, setString] = useState(query.get("tag") || "");
     const [completions, setCompletions] = useState([]);
 
@@ -40,10 +44,11 @@ const TagSearchForm = ({ query, updateQuery }) => {
         const controller = new AbortController();
         (async () => {
             try {
-                const request = { signal: controller.signal };
+                const request = {signal: controller.signal};
                 const response = await fetch(`${API}/tag_complete?prefix=${string}`, request);
                 setCompletions(await response.json());
-            } catch (_error) {}
+            } catch (_error) {
+            }
         })();
         return () => controller.abort();
     }, [string]);
@@ -81,11 +86,77 @@ const TagSearchForm = ({ query, updateQuery }) => {
     `;
 };
 
-const TagCategoriesFilter = ({ shownCategories, setShownCategories }) => {
+const TagPostsOverTime = ({query}) => {
+    const string = (query.get("tag") || "").trim();
+    if (string.length === 0) return html``;
+
+    const [results, setResults] = useState(null);
+    useEffect(() => (async () => {
+        const response = await fetch(`${API}/tag_posts_over_time?tag=${string}`);
+        setResults(response.ok ? await response.json() : null);
+    })(), [query]);
+    if (!results) return html``;
+
+    const element = useRef(null);
+    useEffect(() => {
+        const xAxis = [];
+        const yAxis = [];
+        for (const [timestamp, count] of results) {
+            xAxis.push(Date.parse(timestamp));
+            yAxis.push(count);
+        }
+
+        const chart = new Chart(element.current, {
+            type: "bar",
+            data: {
+                parsing: false,
+                labels: xAxis,
+                datasets: [{
+                    data: yAxis,
+                    backgroundColor: "royalblue",
+                    barPercentage: 1,
+                    categoryPercentage: 1,
+                }],
+            },
+            options: {
+                animation: false,
+                scales: {
+                    xAxes: [{
+                        type: "time",
+                        time: {
+                            minUnit: "month",
+                            tooltipFormat: "MMM YYYY",
+                        },
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            precision: 0,
+                            beginAtZero: true,
+                        },
+                    }],
+                },
+                legend: {
+                    display: false,
+                },
+            },
+        });
+
+        return () => chart.destroy();
+    }, [results]);
+
+    return html`
+        <div>
+            <h2>Posts created over time</h2>
+            <canvas ref=${element}></canvas>
+        </div>
+    `;
+};
+
+const TagCategoriesFilter = ({shownCategories, setShownCategories}) => {
     return html`
         <details>
             <summary>Filter tag categories</summary>
-            ${Object.entries(TAG_CATEGORIES).map(([key, { name, color }]) => html`
+            ${Object.entries(TAG_CATEGORIES).map(([key, {name, color}]) => html`
                 <label class="tag-category-selection">
                     <input
                         type="checkbox"
@@ -105,21 +176,11 @@ const TagCategoriesFilter = ({ shownCategories, setShownCategories }) => {
     `;
 };
 
-const TagCorrelationsList = ({ query, updateQuery, shownCategories }) => {
-    const string = (query.get("tag") || "").trim();
-    if (string.length === 0) return html``;
-
-    const [results, setResults] = useState(null);
-    useEffect(() => (async () => {
-        const response = await fetch(`${API}/tag_correlations?tag=${string}`);
-        setResults(response.ok ? await response.json() : null);
-    })(), [query]);
-    if (!results) return html``;
-
+const TagCorrelationsList = ({updateQuery, shownCategories, results}) => {
     return html`
         <dl style="margin-top: 0.5rem;">
             ${results.correlations
-                .filter(({ tag_category }) => shownCategories[tag_category])
+                .filter(({tag_category}) => shownCategories[tag_category])
                 .map((correlation) => {
                     const category = TAG_CATEGORIES[correlation.tag_category];
                     return html`
@@ -142,10 +203,42 @@ const TagCorrelationsList = ({ query, updateQuery, shownCategories }) => {
     `;
 };
 
+const TagCorrelations = ({query, updateQuery}) => {
+    const [shownCategories, setShownCategories] = useState(Object.fromEntries(
+        Object.keys(TAG_CATEGORIES).map((key) => [key, true])
+    ));
+
+    const string = (query.get("tag") || "").trim();
+    if (string.length === 0) return html``;
+
+    const [results, setResults] = useState(null);
+    useEffect(() => (async () => {
+        const response = await fetch(`${API}/tag_correlations?tag=${string}`);
+        setResults(response.ok ? await response.json() : null);
+    })(), [query]);
+    if (!results) return html``;
+
+    return html`
+        <div>
+            <h2>Top related tags</h2>
+            <${TagCategoriesFilter}
+                shownCategories=${shownCategories}
+                setShownCategories=${setShownCategories}
+            />
+            <${TagCorrelationsList}
+                updateQuery=${updateQuery}
+                shownCategories=${shownCategories}
+                results=${results}
+            />
+        </div>
+    `;
+};
+
 const Page = () => {
     const pageLoadQuery = new URL(window.location).searchParams;
     const [query, setQuery] = useState(pageLoadQuery);
 
+    // FIXME: Update query on page navigation.
     const updateQuery = (key, value) => {
         const url = new URL(window.location);
         url.searchParams.set(key, value);
@@ -153,27 +246,22 @@ const Page = () => {
         setQuery(url.searchParams);
     };
 
-    const [shownCategories, setShownCategories] = useState(Object.fromEntries(
-        Object.keys(TAG_CATEGORIES).map((key) => [key, true])
-    ));
-
     return html`
         <${TagSearchForm}
             key=${query}
             query=${query}
             updateQuery=${updateQuery}
         />
-        <${TagCategoriesFilter}
-            shownCategories=${shownCategories}
-            setShownCategories=${setShownCategories}
+        <${TagPostsOverTime}
+            query=${query}
         />
-        <${TagCorrelationsList}
-            key=${query}
+        <${TagCorrelations}
             query=${query}
             updateQuery=${updateQuery}
-            shownCategories=${shownCategories}
         />
     `;
 };
 
-render(html`<${Page}/>`, document.querySelector("main"));
+const main = document.querySelector("main");
+main.innerHTML = "";
+render(html`<${Page}/>`, main);

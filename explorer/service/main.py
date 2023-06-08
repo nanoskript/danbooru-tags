@@ -19,6 +19,7 @@ def load_table(table):
 tags = load_table("tags.sqlite")
 tag_names_to_ids = load_table("tag_names_to_ids.sqlite")
 tags_with_rankings = load_table("tags_with_rankings.sqlite")
+tags_with_posts_over_time = load_table("tags_with_posts_over_time.sqlite")
 tag_names_trie = Trie(tag_names_to_ids.keys())
 
 
@@ -46,11 +47,21 @@ async def route_tag_complete(prefix: str) -> list[str]:
     return tag_names
 
 
+@app.get("/tag_posts_over_time")
+async def route_tag_posts_over_time(tag: str) -> list[tuple[str, int]]:
+    try:
+        tag_id = tag_names_to_ids[tag]
+        return tags_with_posts_over_time[str(tag_id)]
+    except KeyError:
+        raise HTTPException(status_code=404)
+
+
 @app.get("/tag_correlations")
 async def route_tag_correlations(tag: str) -> TagCorrelations:
     try:
         tag_id = tag_names_to_ids[tag]
         n_posts_for_tag = tags[str(tag_id)]["post_count"]
+        rankings = tags_with_rankings[str(tag_id)]
     except KeyError:
         raise HTTPException(status_code=404)
 
@@ -63,6 +74,6 @@ async def route_tag_correlations(tag: str) -> TagCorrelations:
                 n_correlated=n_correlated,
             )
             for tag_id, n_correlated
-            in tags_with_rankings[str(tag_id)]
+            in rankings
         ]
     )

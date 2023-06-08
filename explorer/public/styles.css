@@ -1,3 +1,9 @@
+h2 {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-size: x-large;
+}
+
 .tag-search-form {
     display: flex;
     flex-direction: row;

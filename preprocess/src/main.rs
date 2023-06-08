@@ -215,6 +215,45 @@ fn average_post_score_for_all_tags(
         .collect()
 }
 
+fn truncate_timestamp_to_month(timestamp: &str) -> &str {
+    let (index, _) = timestamp.match_indices("-").nth(1).unwrap();
+    &timestamp[..index]
+}
+
+fn posts_added_over_time_for_tag<'a>(
+    posts: &'a Posts,
+    tag_posts: &TagPosts,
+    tag: TagId,
+) -> Vec<(&'a str, u32)> {
+    let mut counts: FxHashMap<&str, u32> = FxHashMap::default();
+    let post_ids = &tag_posts[&tag];
+    for post_id in post_ids {
+        let timestamp = &posts[post_id].created_at;
+        let timestamp = truncate_timestamp_to_month(timestamp);
+        *counts.entry(timestamp).or_default() += 1;
+    }
+
+    let mut data = Vec::from_iter(counts.into_iter());
+    data.sort_unstable_by_key(|&(timestamp, _)| timestamp);
+    data
+}
+
+fn posts_added_over_time_for_all_tags<'a>(
+    posts: &'a Posts,
+    tag_posts: &TagPosts,
+) -> FxHashMap<TagId, Vec<(&'a str, u32)>> {
+    println!("[create] posts added over time for all tags");
+    tag_posts
+        .iter()
+        .progress()
+        .par_bridge()
+        .map(|(&tag_id, _)| {
+            let counts = posts_added_over_time_for_tag(posts, tag_posts, tag_id);
+            (tag_id, counts)
+        })
+        .collect()
+}
+
 fn write_to_json<T: Serialize>(path: &Path, data: &T) {
     println!("[write/json] {}", path.display());
     let writer = BufWriter::new(File::create(path).unwrap());
@@ -245,5 +284,11 @@ fn main() {
     write_to_json(
         Path::new("../processed/tags_with_average_score.json"),
         &tags_with_average_score,
+    );
+
+    let tags_with_posts_over_time = posts_added_over_time_for_all_tags(&posts, &tag_posts);
+    write_to_json(
+        Path::new("../processed/tags_with_posts_over_time.json"),
+        &tags_with_posts_over_time,
     );
 }
