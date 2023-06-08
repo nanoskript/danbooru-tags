@@ -235,11 +235,19 @@ const TagCorrelations = ({query, updateQuery}) => {
     `;
 };
 
-const Page = () => {
-    const pageLoadQuery = new URL(window.location).searchParams;
-    const [query, setQuery] = useState(pageLoadQuery);
+function usePageQuery() {
+    const read = () => new URL(window.location).searchParams;
+    const [query, setQuery] = useState(read());
+    useEffect(() => {
+        const listener = () => setQuery(read());
+        window.addEventListener("popstate", listener);
+        return () => window.removeEventListener("popstate", listener);
+    }, []);
+    return [query, setQuery];
+}
 
-    // FIXME: Update query on page navigation.
+const Page = () => {
+    const [query, setQuery] = usePageQuery();
     const updateQuery = (key, value) => {
         const url = new URL(window.location);
         url.searchParams.set(key, value);
