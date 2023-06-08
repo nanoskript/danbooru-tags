@@ -70,12 +70,13 @@ const TagSearchForm = ({query, updateQuery}) => {
                            autocapitalize="none" spellcheck="false"
                            oninput=${(e) => setString(e.target.value)}/>
                     <dl class="tag-search-menu">
-                        ${completions.map((completion) => html`
+                        ${completions.map(({tag, category}) => html`
                             <dt
                                 class="tag-search-menu-item"
-                                onclick=${() => onSelect(completion)}
+                                onclick=${() => onSelect(tag)}
                             >
-                                ${completion}
+                                <span style=${`color: ${TAG_CATEGORIES[category].color};`}>${tag}</span>
+                                <span style="font-size: smaller;"> — ${TAG_CATEGORIES[category].name}</span>
                             </dt>
                         `)}
                     </dl>

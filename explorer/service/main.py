@@ -23,6 +23,11 @@ tags_with_posts_over_time = load_table("tags_with_posts_over_time.sqlite")
 tag_names_trie = Trie(tag_names_to_ids.keys())
 
 
+class TagCompletion(BaseModel):
+    tag: str
+    category: int
+
+
 class TagCorrelation(BaseModel):
     tag: str
     tag_category: int
@@ -39,12 +44,19 @@ async def route_index():
     return RedirectResponse("/docs")
 
 
-# TODO: return tag category with tag name
 @app.get("/tag_complete")
-async def route_tag_complete(prefix: str) -> list[str]:
+async def route_tag_complete(prefix: str) -> list[TagCompletion]:
     all_tag_names = tag_names_trie.iterkeys(prefix)
     tag_names = list(itertools.islice(all_tag_names, 10))
-    return tag_names
+
+    completions = []
+    for name in tag_names:
+        tag_id = tag_names_to_ids[name]
+        completions.append(TagCompletion(
+            tag=name,
+            category=tags[str(tag_id)]["category"],
+        ))
+    return completions
 
 
 @app.get("/tag_posts_over_time")
