@@ -2,11 +2,10 @@ FROM python:3.10-slim-buster
 
 RUN pip install --no-cache-dir pdm
 ADD ./pyproject.toml ./pdm.lock ./
-RUN pdm sync && pdm cache clear
 
 # System dependencies.
-RUN apt-get update
-RUN apt-get install -y curl
+RUN apt-get update && apt-get install -y curl g++
+RUN pdm sync && pdm cache clear
 
 # Vendor external assets.
 RUN mkdir vendor
