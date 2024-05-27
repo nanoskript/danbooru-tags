@@ -13,7 +13,5 @@ ADD ./vendor/download.sh ./vendor/
 RUN (cd ./vendor && bash download.sh)
 
 ADD ./main.py ./
+CMD pdm run uvicorn --host 0.0.0.0 --port $PORT main:app
 
-CMD ["pdm", "run", "uvicorn", \
-	"--host", "0.0.0.0", "--port", "$PORT", \
-	"main:app"]
