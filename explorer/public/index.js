@@ -10,7 +10,7 @@ import "https://cdn.jsdelivr.net/npm/chartjs-adapter-dayjs@1.0.0/+esm";
 const html = htm.bind(h);
 
 // Global variables.
-const API = "https://danbooru-tags-explorer.nanoskript.dev";
+const API = "https://danbooru-tags-explorer.nsk.sh";
 
 // Tags data.
 const TAG_CATEGORIES = {

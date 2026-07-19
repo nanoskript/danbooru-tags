@@ -1,7 +1,7 @@
 # danbooru-tags
 
-[Original post](https://nanoskript.dev/posts/an-analysis-of-danbooru-tags-and-metadata/)
-| [Danbooru Tags Explorer](https://nanoskript.dev/tools/danbooru-tags-explorer/)
+[Original post](https://nsk.sh/posts/an-analysis-of-danbooru-tags-and-metadata/)
+| [Danbooru Tags Explorer](https://nsk.sh/tools/danbooru-tags-explorer/)
 
 ## Reproduction of results
 
